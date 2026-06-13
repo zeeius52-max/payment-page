@@ -2,100 +2,99 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Repayment Portal</title>
 
 <style>
 body{
-margin:0;
-padding:20px;
-background:#f3f3f3;
-font-family:Arial,sans-serif;
+    margin:0;
+    padding:20px;
+    background:#f3f3f3;
+    font-family:Arial,sans-serif;
 }
 
 .container{
-max-width:500px;
-margin:auto;
+    max-width:500px;
+    margin:auto;
 }
 
 .header{
-text-align:center;
-font-size:28px;
-font-weight:bold;
-margin-bottom:20px;
+    text-align:center;
+    font-size:28px;
+    font-weight:bold;
+    margin-bottom:20px;
 }
 
 .blue-card{
-background:#4f67ff;
-color:white;
-border-radius:15px;
-padding:20px;
-text-align:center;
+    background:#4f67ff;
+    color:white;
+    border-radius:15px;
+    padding:20px;
+    text-align:center;
 }
 
 .days{
-font-size:55px;
-font-weight:bold;
-color:#ffb400;
+    font-size:60px;
+    color:#ffbf00;
+    font-weight:bold;
 }
 
 .row{
-display:flex;
-justify-content:space-between;
-margin-top:20px;
-}
-
-.white-card{
-background:white;
-border-radius:12px;
-padding:15px;
-margin-top:15px;
+    display:flex;
+    justify-content:space-between;
+    margin-top:25px;
 }
 
 .info{
-padding:12px 0;
-border-bottom:1px solid #eee;
-display:flex;
-justify-content:space-between;
+    background:white;
+    border-radius:15px;
+    padding:15px;
+    margin-top:15px;
+}
+
+.info-row{
+    display:flex;
+    justify-content:space-between;
+    padding:12px 0;
+    border-bottom:1px solid #ddd;
+}
+
+.info-row:last-child{
+    border-bottom:none;
 }
 
 .btn{
-display:block;
-width:100%;
-padding:18px;
-border:none;
-border-radius:40px;
-margin-top:15px;
-font-size:20px;
-font-weight:bold;
-cursor:pointer;
+    width:100%;
+    background:#4f67ff;
+    color:white;
+    border:none;
+    border-radius:40px;
+    padding:16px;
+    font-size:24px;
+    font-weight:bold;
+    margin-top:20px;
+    cursor:pointer;
 }
 
-.blue{
-background:#4f67ff;
-color:white;
+.qr-box{
+    background:white;
+    border-radius:15px;
+    padding:15px;
+    margin-top:15px;
+    text-align:center;
 }
 
-.green{
-background:#55c431;
-color:white;
+.qr-box img{
+    width:220px;
+    max-width:100%;
 }
 
 .notice{
-background:white;
-margin-top:20px;
-padding:15px;
-border-radius:12px;
-}
-
-.notice h3{
-color:red;
-}
-
-.footer{
-text-align:center;
-margin-top:20px;
-color:#666;
+    margin-top:25px;
+    color:red;
+    line-height:1.7;
+    font-size:18px;
 }
 </style>
 </head>
@@ -104,143 +103,108 @@ color:#666;
 
 <div class="container">
 
-<div class="header" id="app">
-CreditPulse
-</div>
+<div class="header" id="appName">MastMoney</div>
 
 <div class="blue-card">
+    <div class="days">0</div>
+    <div>Remain Days</div>
 
-<div class="days" id="days">0</div>
-<div>Remain Days</div>
+    <div class="row">
+        <div>
+            <h1 id="amount">₹3500</h1>
+            <div>Repayment Amount</div>
+        </div>
 
-<div class="row">
-<div>
-<h2>₹<span id="amount">0</span></h2>
-<div>Repayment Amount</div>
+        <div>
+            <h1>2026-06-13</h1>
+            <div>Repayment Date</div>
+        </div>
+    </div>
 </div>
-
-<div>
-<h2 id="date">2026-06-13</h2>
-<div>Repayment Date</div>
-</div>
-</div>
-
-</div>
-
-<div class="white-card">
 
 <div class="info">
+
+<div class="info-row">
 <span>Period</span>
-<span id="period">7 days</span>
+<span>7 Days</span>
 </div>
 
-<div class="info">
+<div class="info-row">
 <span>Loan Status</span>
-<span id="status">Pending Payment</span>
+<span>Pending Payment</span>
 </div>
 
-<div class="info">
+<div class="info-row">
 <span>Name</span>
-<span id="name">Customer</span>
+<span id="customerName">Ali Khan</span>
 </div>
 
-<div class="info" style="border:none;">
-<span>Mobile</span>
-<span id="mobile">0000000000</span>
+<div class="info-row">
+<span>UPI ID</span>
+<span id="upiId">abc@okhdfcbank</span>
 </div>
 
 </div>
 
-<button class="btn blue" onclick="goRepay()">
-Go To Repay<div class="white-card">
+<button class="btn" onclick="openUPI()">
+Go To Repay
+</button>
 
-<h3>UPI Payment</h3>
+<div class="qr-box">
+    <img id="qr"
+    src=""
+    alt="QR Code">
+</div>
 
-<p><b>UPI ID:</b> <span id="upiText"></span></p>
-
-<button class="btn blue" onclick="copyUPI()">
+<button class="btn" onclick="copyUPI()">
 Copy UPI ID
 </button>
 
-<br><br>
-
-<img id="qr" width="220">
-
-</div>
-</button>
-
-<button class="btn blue">
-Apply For Deferment
-</button>
-
-<button class="btn green">
-Upload Payment Voucher
-</button>
-
 <div class="notice">
-<h3>Customer Notice:</h3>
-<p>
-Please repay on time. For support contact customer care.
-</p>
-</div>
-
-<div class="footer">
-Barfiiii Version 4 🚀
+<b>Customer Notice:</b><br><br>
+Please complete your repayment on time.
+After payment keep screenshot for record.
 </div>
 
 </div>
 
 <script>
 
-const p=new URLSearchParams(window.location.search);
+const params = new URLSearchParams(window.location.search);
 
-document.getElementById("app").innerText=
-p.get("app")||"CreditPulse";
+const app =
+params.get("app") || "MastMoney";
 
-document.getElementById("amount").innerText=
-p.get("amount")||"1020";
+const name =
+params.get("name") || "Ali Khan";
 
-document.getElementById("date").innerText=
-p.get("date")||"2026-06-13";
+const amount =
+params.get("amount") || "3500";
 
-document.getElementById("days").innerText=
-p.get("days")||"0";
+const upi =
+params.get("upi") || "abc@okhdfcbank";
 
-document.getElementById("name").innerText=
-p.get("name")||"Customer";
-
-document.getElementById("mobile").innerText=
-p.get("mobile")||"0000000000";
-
-document.getElementById("status").innerText=
-p.get("status")||"Pending Payment";
-
-document.getElementById("period").innerText=
-p.get("period")||"7 Days";
-
-const upi=document.getElementById("upiText").innerText = upi;
-
-const upiLink =
-`upi://pay?pa=${upi}&pn=Repayment&am=${amount}&cu=INR`;
+document.getElementById("appName").innerText = app;
+document.getElementById("customerName").innerText = name;
+document.getElementById("amount").innerText = "₹" + amount;
+document.getElementById("upiId").innerText = upi;
 
 document.getElementById("qr").src =
-"https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=" +
-encodeURIComponent(upiLink);
+"https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=upi://pay?pa="
++ upi +
+"&pn=" + name +
+"&am=" + amount;
 
 function copyUPI(){
 navigator.clipboard.writeText(upi);
-alert("UPI Copied");
+alert("UPI ID Copied");
 }
-p.get("upi")||"test@upi";
 
-function goRepay(){
-
-const amount=
-p.get("amount")||"0";
-
-window.location.href=
-`upi://pay?pa=${upi}&pn=Repayment&am=${amount}&cu=INR`;
-
+function openUPI(){
+window.location.href =
+"upi://pay?pa=" + upi +
+"&pn=" + name +
+"&am=" + amount;
 }
 
 </script>
