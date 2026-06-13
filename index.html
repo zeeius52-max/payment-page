@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Payment Page</title>
+</head>
+<body>
+
+<h1>Payment Gateway</h1>
+
+<p>Name: <span id="name"></span></p>
+<p>Amount: ₹<span id="amount"></span></p>
+<p>UPI: <span id="upi"></span></p>
+
+<script>
+const p = new URLSearchParams(window.location.search);
+
+document.getElementById("name").innerText =
+p.get("name") || "CreditPulse";
+
+document.getElementById("amount").innerText =
+p.get("amount") || "12500";
+
+document.getElementById("upi").innerText =
+p.get("upi") || "test@upi";
+</script>
+
+</body>
+</html>
