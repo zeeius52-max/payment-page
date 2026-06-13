@@ -1,27 +1,194 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Version 2 Test</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Repayment Portal</title>
 
 <style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Segoe UI,sans-serif;
+}
+
 body{
-background:red;
-color:white;
-font-family:Arial;
+background:linear-gradient(135deg,#0f172a,#1e293b);
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:20px;
+}
+
+.card{
+width:100%;
+max-width:420px;
+background:#fff;
+border-radius:24px;
+padding:25px;
+box-shadow:0 20px 50px rgba(0,0,0,.25);
+}
+
+.logo{
+font-size:28px;
+font-weight:700;
+color:#2563eb;
 text-align:center;
-padding-top:100px;
+margin-bottom:5px;
 }
 
-h1{
-font-size:60px;
+.sub{
+text-align:center;
+color:#64748b;
+margin-bottom:20px;
 }
+
+.amount{
+font-size:42px;
+font-weight:700;
+color:#16a34a;
+text-align:center;
+margin-bottom:20px;
+}
+
+.section{
+background:#f8fafc;
+padding:14px;
+border-radius:12px;
+margin-bottom:12px;
+}
+
+.label{
+font-size:12px;
+color:#64748b;
+text-transform:uppercase;
+}
+
+.value{
+font-size:17px;
+font-weight:600;
+margin-top:4px;
+word-break:break-word;
+}
+
+.qr{
+text-align:center;
+margin:20px 0;
+}
+
+.qr img{
+width:220px;
+max-width:100%;
+border-radius:12px;
+}
+
+.btn{
+width:100%;
+padding:14px;
+border:none;
+border-radius:12px;
+background:#2563eb;
+color:white;
+font-size:16px;
+font-weight:600;
+cursor:pointer;
+margin-top:10px;
+}
+
+.btn:hover{
+opacity:.9;
+}
+
+.footer{
+text-align:center;
+margin-top:15px;
+font-size:13px;
+color:#64748b;
+}
+
 </style>
-
 </head>
-
 <body>
 
-<h1>BARFIIIII VERSION 2 🚀</h1>
+<div class="card">
+
+<div class="logo" id="appName">
+CreditPulse
+</div>
+
+<div class="sub">
+Loan Repayment Portal
+</div>
+
+<div class="amount">
+₹<span id="amount">0</span>
+</div>
+
+<div class="section">
+<div class="label">Customer</div>
+<div class="value" id="customer">
+Customer Name
+</div>
+</div>
+
+<div class="section">
+<div class="label">UPI ID</div>
+<div class="value" id="upi">
+test@upi
+</div>
+</div>
+
+<div class="qr">
+<img id="qrImage" src="">
+</div>
+
+<button class="btn" onclick="copyUPI()">
+Copy UPI ID
+</button>
+
+<div class="footer">
+Secure Payment Portal
+</div>
+
+</div>
+
+<script>
+
+const params = new URLSearchParams(window.location.search);
+
+const app =
+params.get("app") || "CreditPulse";
+
+const customer =
+params.get("name") || "Customer";
+
+const amount =
+params.get("amount") || "12500";
+
+const upi =
+params.get("upi") || "test@upi";
+
+document.getElementById("appName").innerText = app;
+document.getElementById("customer").innerText = customer;
+document.getElementById("amount").innerText = amount;
+document.getElementById("upi").innerText = upi;
+
+const upiLink =
+`upi://pay?pa=${upi}&pn=${customer}&am=${amount}&cu=INR`;
+
+document.getElementById("qrImage").src =
+"https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=" +
+encodeURIComponent(upiLink);
+
+function copyUPI(){
+navigator.clipboard.writeText(upi);
+alert("UPI Copied Successfully");
+}
+
+</script>
 
 </body>
 </html>
