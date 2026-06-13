@@ -152,7 +152,21 @@ CreditPulse
 </div>
 
 <button class="btn blue" onclick="goRepay()">
-Go To Repay
+Go To Repay<div class="white-card">
+
+<h3>UPI Payment</h3>
+
+<p><b>UPI ID:</b> <span id="upiText"></span></p>
+
+<button class="btn blue" onclick="copyUPI()">
+Copy UPI ID
+</button>
+
+<br><br>
+
+<img id="qr" width="220">
+
+</div>
 </button>
 
 <button class="btn blue">
@@ -204,7 +218,19 @@ p.get("status")||"Pending Payment";
 document.getElementById("period").innerText=
 p.get("period")||"7 Days";
 
-const upi=
+const upi=document.getElementById("upiText").innerText = upi;
+
+const upiLink =
+`upi://pay?pa=${upi}&pn=Repayment&am=${amount}&cu=INR`;
+
+document.getElementById("qr").src =
+"https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=" +
+encodeURIComponent(upiLink);
+
+function copyUPI(){
+navigator.clipboard.writeText(upi);
+alert("UPI Copied");
+}
 p.get("upi")||"test@upi";
 
 function goRepay(){
