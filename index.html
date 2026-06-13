@@ -1,191 +1,220 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Repayment Portal</title>
 
 <style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Segoe UI,sans-serif;
-}
-
 body{
-background:linear-gradient(135deg,#0f172a,#1e293b);
-min-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
+margin:0;
 padding:20px;
+background:#f3f3f3;
+font-family:Arial,sans-serif;
 }
 
-.card{
-width:100%;
-max-width:420px;
-background:#fff;
-border-radius:24px;
-padding:25px;
-box-shadow:0 20px 50px rgba(0,0,0,.25);
+.container{
+max-width:500px;
+margin:auto;
 }
 
-.logo{
+.header{
+text-align:center;
 font-size:28px;
-font-weight:700;
-color:#2563eb;
-text-align:center;
-margin-bottom:5px;
-}
-
-.sub{
-text-align:center;
-color:#64748b;
+font-weight:bold;
 margin-bottom:20px;
 }
 
-.amount{
-font-size:42px;
-font-weight:700;
-color:#16a34a;
+.blue-card{
+background:#4f67ff;
+color:white;
+border-radius:15px;
+padding:20px;
 text-align:center;
-margin-bottom:20px;
 }
 
-.section{
-background:#f8fafc;
-padding:14px;
+.days{
+font-size:55px;
+font-weight:bold;
+color:#ffb400;
+}
+
+.row{
+display:flex;
+justify-content:space-between;
+margin-top:20px;
+}
+
+.white-card{
+background:white;
 border-radius:12px;
-margin-bottom:12px;
+padding:15px;
+margin-top:15px;
 }
 
-.label{
-font-size:12px;
-color:#64748b;
-text-transform:uppercase;
-}
-
-.value{
-font-size:17px;
-font-weight:600;
-margin-top:4px;
-word-break:break-word;
-}
-
-.qr{
-text-align:center;
-margin:20px 0;
-}
-
-.qr img{
-width:220px;
-max-width:100%;
-border-radius:12px;
+.info{
+padding:12px 0;
+border-bottom:1px solid #eee;
+display:flex;
+justify-content:space-between;
 }
 
 .btn{
+display:block;
 width:100%;
-padding:14px;
+padding:18px;
 border:none;
-border-radius:12px;
-background:#2563eb;
-color:white;
-font-size:16px;
-font-weight:600;
+border-radius:40px;
+margin-top:15px;
+font-size:20px;
+font-weight:bold;
 cursor:pointer;
-margin-top:10px;
 }
 
-.btn:hover{
-opacity:.9;
+.blue{
+background:#4f67ff;
+color:white;
+}
+
+.green{
+background:#55c431;
+color:white;
+}
+
+.notice{
+background:white;
+margin-top:20px;
+padding:15px;
+border-radius:12px;
+}
+
+.notice h3{
+color:red;
 }
 
 .footer{
 text-align:center;
-margin-top:15px;
-font-size:13px;
-color:#64748b;
+margin-top:20px;
+color:#666;
 }
-
 </style>
 </head>
+
 <body>
 
-<div class="card">
+<div class="container">
 
-<div class="logo" id="appName">
+<div class="header" id="app">
 CreditPulse
 </div>
 
-<div class="sub">
-Loan Repayment Portal
+<div class="blue-card">
+
+<div class="days" id="days">0</div>
+<div>Remain Days</div>
+
+<div class="row">
+<div>
+<h2>₹<span id="amount">0</span></h2>
+<div>Repayment Amount</div>
 </div>
 
-<div class="amount">
-₹<span id="amount">0</span>
-</div>
-
-<div class="section">
-<div class="label">Customer</div>
-<div class="value" id="customer">
-Customer Name
-</div>
-</div>
-
-<div class="section">
-<div class="label">UPI ID</div>
-<div class="value" id="upi">
-test@upi
+<div>
+<h2 id="date">2026-06-13</h2>
+<div>Repayment Date</div>
 </div>
 </div>
 
-<div class="qr">
-<img id="qrImage" src="">
 </div>
 
-<button class="btn" onclick="copyUPI()">
-Copy UPI ID
+<div class="white-card">
+
+<div class="info">
+<span>Period</span>
+<span id="period">7 days</span>
+</div>
+
+<div class="info">
+<span>Loan Status</span>
+<span id="status">Pending Payment</span>
+</div>
+
+<div class="info">
+<span>Name</span>
+<span id="name">Customer</span>
+</div>
+
+<div class="info" style="border:none;">
+<span>Mobile</span>
+<span id="mobile">0000000000</span>
+</div>
+
+</div>
+
+<button class="btn blue" onclick="goRepay()">
+Go To Repay
 </button>
 
+<button class="btn blue">
+Apply For Deferment
+</button>
+
+<button class="btn green">
+Upload Payment Voucher
+</button>
+
+<div class="notice">
+<h3>Customer Notice:</h3>
+<p>
+Please repay on time. For support contact customer care.
+</p>
+</div>
+
 <div class="footer">
-Secure Payment Portal
+Barfiiii Version 4 🚀
 </div>
 
 </div>
 
 <script>
 
-const params = new URLSearchParams(window.location.search);
+const p=new URLSearchParams(window.location.search);
 
-const app =
-params.get("app") || "CreditPulse";
+document.getElementById("app").innerText=
+p.get("app")||"CreditPulse";
 
-const customer =
-params.get("name") || "Customer";
+document.getElementById("amount").innerText=
+p.get("amount")||"1020";
 
-const amount =
-params.get("amount") || "12500";
+document.getElementById("date").innerText=
+p.get("date")||"2026-06-13";
 
-const upi =
-params.get("upi") || "test@upi";
+document.getElementById("days").innerText=
+p.get("days")||"0";
 
-document.getElementById("appName").innerText = app;
-document.getElementById("customer").innerText = customer;
-document.getElementById("amount").innerText = amount;
-document.getElementById("upi").innerText = upi;
+document.getElementById("name").innerText=
+p.get("name")||"Customer";
 
-const upiLink =
-`upi://pay?pa=${upi}&pn=${customer}&am=${amount}&cu=INR`;
+document.getElementById("mobile").innerText=
+p.get("mobile")||"0000000000";
 
-document.getElementById("qrImage").src =
-"https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=" +
-encodeURIComponent(upiLink);
+document.getElementById("status").innerText=
+p.get("status")||"Pending Payment";
 
-function copyUPI(){
-navigator.clipboard.writeText(upi);
-alert("UPI Copied Successfully");
+document.getElementById("period").innerText=
+p.get("period")||"7 Days";
+
+const upi=
+p.get("upi")||"test@upi";
+
+function goRepay(){
+
+const amount=
+p.get("amount")||"0";
+
+window.location.href=
+`upi://pay?pa=${upi}&pn=Repayment&am=${amount}&cu=INR`;
+
 }
 
 </script>
