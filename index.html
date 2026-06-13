@@ -188,7 +188,14 @@ document.getElementById("appName").innerText = app;
 document.getElementById("customerName").innerText = name;
 document.getElementById("amount").innerText = "₹" + amount;
 document.getElementById("upiId").innerText = upi;
+const today = new Date();
 
+const formatted =
+today.getFullYear() + "-" +
+String(today.getMonth()+1).padStart(2,'0') + "-" +
+String(today.getDate()).padStart(2,'0');
+
+document.getElementById("todayDate").innerText = formatted;
 document.getElementById("qr").src =
 "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=upi://pay?pa="
 + upi +
